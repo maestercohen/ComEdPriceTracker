@@ -9,26 +9,31 @@ let package = Package(
         .iOS(.v15)
     ],
     products: [
-        .executable(name: "ComEdPriceTracker", targets: ["ComEdPriceTrackerCLI"]),
-        .library(name: "ComEdPriceTrackerApp", targets: ["ComEdPriceTrackerApp"])
+        // Main app as a library product (for iOS app)
+        .library(
+            name: "ComEdPriceTracker",
+            targets: ["ComEdPriceTracker"]
+        ),
+        // CLI tool as a separate executable product
+        .executable(
+            name: "ComEdPriceTrackerCLI",
+            targets: ["ComEdPriceTrackerCLI"]
+        )
     ],
     dependencies: [],
     targets: [
-        .executableTarget(
-            name: "ComEdPriceTrackerCLI", 
-            dependencies: [],
-            path: ".",
-            sources: ["main.swift"]
-        ),
+        // Main app target
         .target(
-            name: "ComEdPriceTrackerApp",
+            name: "ComEdPriceTracker",
             dependencies: [],
             path: "ComEdPriceTracker",
-            exclude: [],
-            resources: [.process("Resources")],
-            swiftSettings: [
-                .define("SWIFT_PACKAGE")
-            ]
+            resources: [.process("Resources")]
+        ),
+        // CLI tool target in a separate directory
+        .executableTarget(
+            name: "ComEdPriceTrackerCLI",
+            dependencies: [],
+            path: "CLI"
         )
     ]
 )

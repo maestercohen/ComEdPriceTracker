@@ -1,0 +1,15 @@
+import Foundation
+
+print("ComEd Price Tracker")
+print("-------------------")
+print("This is an iOS application project for development in Xcode.")
+print("The app displays ComEd's hourly electricity pricing data as a home screen widget")
+print("and sends notifications based on user-defined price thresholds.")
+print("")
+print("To develop this app locally:")
+print("1. Clone from GitHub: https://github.com/maestercohen/ComEdPriceTracker")
+print("2. Open in Xcode")
+print("3. Build and run on an iOS device or simulator")
+print("")
+print("Note: This project contains UIKit and SwiftUI code that requires")
+print("an actual iOS device or simulator to run properly.")

@@ -128,6 +128,56 @@ If you see errors related to localization such as "defaultLocalization not set",
    - Select Product > Clean Build Folder
    - Build the project again
 
+### Fixing Target/Product Configuration Errors
+
+If you see errors like "Library product contains a target of type executable" or "'main' attribute cannot be used in a module that contains top-level code", follow these steps:
+
+1. **Fix Product Type Mismatch**:
+   - Open Package.swift and ensure products and targets are aligned:
+   - A library product must have a regular target (not executable)
+   - An executable product must have an executable target
+   
+2. **Separate Executable and Library Code**:
+   - If your app has both executable (CLI) and library (app) components:
+   - Move the main.swift to a separate directory (e.g., CLI/)
+   - Use separate targets in Package.swift for each component
+   - For iOS apps, use the @main attribute in a SwiftUI App struct
+
+3. **Correct File Structure**:
+   - For iOS apps, App.swift should contain:
+   ```swift
+   import SwiftUI
+   
+   @main
+   struct ComEdPriceTrackerApp: App {
+       @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+       
+       var body: some Scene {
+           WindowGroup {
+               ContentView()
+           }
+       }
+   }
+   ```
+   
+4. **Fix Resources Not Found Error**:
+   - Create a Resources directory in your app's main folder
+   - Add resource files to this directory
+   - Ensure the Package.swift includes the resources reference:
+   ```swift
+   .target(
+       name: "ComEdPriceTracker",
+       dependencies: [],
+       path: "ComEdPriceTracker",
+       resources: [.process("Resources")]
+   )
+   ```
+
+5. **Use Xcode's Application Template**:
+   - If errors persist, create a new iOS App using Xcode's template
+   - Copy all files to the new project maintaining the structure
+   - This ensures all proper iOS app settings are configured
+
 If you continue having issues with any of these errors, try cleaning the build folder (Product > Clean Build Folder) and restarting Xcode.
 
 ## Data Source

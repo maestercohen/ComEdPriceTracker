@@ -5,23 +5,31 @@
 	};
 	objectVersion = 55;
 	objects = {
+
 /* Begin PBXBuildFile section */
-		/* Source Files */
+		1234567890ABCDEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE0 /* AppDelegate.swift */; };
+		1234567890ABCDE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE2 /* SceneDelegate.swift */; };
+		1234567890ABCDE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE4 /* ContentView.swift */; };
+		1234567890ABCDE5 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE6 /* App.swift */; };
+		1234567890ABCDE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDE8 /* Assets.xcassets */; };
+		1234567890ABCDE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEA /* LaunchScreen.storyboard */; };
+		1234567890ABCDEB /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 1234567890ABCDEC /* Resources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		123456789ABCDEF1 /* ComEdPriceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComEdPriceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		123456789ABCDEF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		123456789ABCDEF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		123456789ABCDEF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		123456789ABCDEF5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		123456789ABCDEF6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		123456789ABCDEF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		123456789ABCDEF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1234567890ABCDED /* ComEdPriceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComEdPriceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1234567890ABCDE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1234567890ABCDE2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1234567890ABCDE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1234567890ABCDE6 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		1234567890ABCDE8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1234567890ABCDEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1234567890ABCDEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1234567890ABCDEC /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		123456789ABCDEF9 /* Frameworks */ = {
+		1234567890ABCDEF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -31,46 +39,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		123456789ABCDEFA /* Products */ = {
+		1234567890ABCDEF0 = {
 			isa = PBXGroup;
 			children = (
-				123456789ABCDEF1 /* ComEdPriceTracker.app */,
+				1234567890ABCDEF1 /* ComEdPriceTracker */,
+				1234567890ABCDEF2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1234567890ABCDEF2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1234567890ABCDED /* ComEdPriceTracker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		123456789ABCDEFB /* ComEdPriceTracker */ = {
+		1234567890ABCDEF1 /* ComEdPriceTracker */ = {
 			isa = PBXGroup;
 			children = (
-				123456789ABCDEF2 /* Info.plist */,
-				123456789ABCDEF3 /* AppDelegate.swift */,
-				123456789ABCDEF4 /* SceneDelegate.swift */,
-				123456789ABCDEF5 /* ContentView.swift */,
-				123456789ABCDEF6 /* LaunchScreen.storyboard */,
-				123456789ABCDEF7 /* Localizable.strings */,
-				123456789ABCDEF8 /* Localizable.strings */,
+				1234567890ABCDE0 /* AppDelegate.swift */,
+				1234567890ABCDE2 /* SceneDelegate.swift */,
+				1234567890ABCDE4 /* ContentView.swift */,
+				1234567890ABCDE6 /* App.swift */,
+				1234567890ABCDE8 /* Assets.xcassets */,
+				1234567890ABCDEA /* LaunchScreen.storyboard */,
+				1234567890ABCDEE /* Info.plist */,
+				1234567890ABCDEC /* Resources */,
 			);
 			path = ComEdPriceTracker;
-			sourceTree = "<group>";
-		};
-		123456789ABCDEFC = {
-			isa = PBXGroup;
-			children = (
-				123456789ABCDEFB /* ComEdPriceTracker */,
-				123456789ABCDEFA /* Products */,
-			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		123456789ABCDEFD /* ComEdPriceTracker */ = {
+		1234567890ABCDEF3 /* ComEdPriceTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 123456789ABCDEFE /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */;
+			buildConfigurationList = 1234567890ABCDEF4 /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */;
 			buildPhases = (
-				123456789ABCDEFF /* Sources */,
-				123456789ABCDEF9 /* Frameworks */,
-				123456789ABCDF00 /* Resources */,
+				1234567890ABCDEF5 /* Sources */,
+				1234567890ABCDEF /* Frameworks */,
+				1234567890ABCDEF6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -78,85 +87,83 @@
 			);
 			name = ComEdPriceTracker;
 			productName = ComEdPriceTracker;
-			productReference = 123456789ABCDEF1 /* ComEdPriceTracker.app */;
+			productReference = 1234567890ABCDED /* ComEdPriceTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		123456789ABCDF01 /* Project object */ = {
+		1234567890ABCDEF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					123456789ABCDEFD = {
-						CreatedOnToolsVersion = 14.2;
+					1234567890ABCDEF3 = {
+						CreatedOnToolsVersion = 14.3;
 					};
 				};
 			};
-			buildConfigurationList = 123456789ABCDF02 /* Build configuration list for PBXProject "ComEdPriceTracker" */;
-			compatibilityVersion = "Xcode 14.0";
+			buildConfigurationList = 1234567890ABCDEF8 /* Build configuration list for PBXProject "ComEdPriceTracker" */;
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 123456789ABCDEFC;
-			productRefGroup = 123456789ABCDEFA /* Products */;
+			mainGroup = 1234567890ABCDEF0;
+			productRefGroup = 1234567890ABCDEF2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				123456789ABCDEFD /* ComEdPriceTracker */,
+				1234567890ABCDEF3 /* ComEdPriceTracker */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		123456789ABCDF00 /* Resources */ = {
+		1234567890ABCDEF6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1234567890ABCDE9 /* LaunchScreen.storyboard in Resources */,
+				1234567890ABCDEB /* Resources in Resources */,
+				1234567890ABCDE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		123456789ABCDEFF /* Sources */ = {
+		1234567890ABCDEF5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1234567890ABCDEF /* AppDelegate.swift in Sources */,
+				1234567890ABCDE1 /* SceneDelegate.swift in Sources */,
+				1234567890ABCDE3 /* ContentView.swift in Sources */,
+				1234567890ABCDE5 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		123456789ABCDEF6 /* LaunchScreen.storyboard */ = {
+		1234567890ABCDEA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				123456789ABCDEF6 /* Base */,
+				1234567890ABCDEA /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		123456789ABCDEF7 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				123456789ABCDEF7 /* en */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		123456789ABCDF03 /* Debug */ = {
+		1234567890ABCDEF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 123456789ABCDF04 /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -212,13 +219,11 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				DEVELOPMENT_LANGUAGE = en;
 			};
 			name = Debug;
 		};
-		123456789ABCDF05 /* Release */ = {
+		1234567890ABCDEFA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 123456789ABCDF04 /* project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -268,11 +273,10 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
-				DEVELOPMENT_LANGUAGE = en;
 			};
 			name = Release;
 		};
-		123456789ABCDF06 /* Debug */ = {
+		1234567890ABCDEFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -284,6 +288,8 @@
 				INFOPLIST_FILE = ComEdPriceTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -297,7 +303,7 @@
 			};
 			name = Debug;
 		};
-		123456789ABCDF07 /* Release */ = {
+		1234567890ABCDEFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -309,6 +315,8 @@
 				INFOPLIST_FILE = ComEdPriceTracker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -325,25 +333,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		123456789ABCDF02 /* Build configuration list for PBXProject "ComEdPriceTracker" */ = {
+		1234567890ABCDEF4 /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				123456789ABCDF03 /* Debug */,
-				123456789ABCDF05 /* Release */,
+				1234567890ABCDEFB /* Debug */,
+				1234567890ABCDEFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		123456789ABCDEFE /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */ = {
+		1234567890ABCDEF8 /* Build configuration list for PBXProject "ComEdPriceTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				123456789ABCDF06 /* Debug */,
-				123456789ABCDF07 /* Release */,
+				1234567890ABCDEF9 /* Debug */,
+				1234567890ABCDEFA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 123456789ABCDF01 /* Project object */;
+	rootObject = 1234567890ABCDEF7 /* Project object */;
 }

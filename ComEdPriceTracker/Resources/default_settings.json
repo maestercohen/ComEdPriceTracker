@@ -1,0 +1,7 @@
+{
+  "high_price_threshold": 0.08,
+  "low_price_threshold": 0.02,
+  "notification_enabled": true,
+  "widget_refresh_interval": 15,
+  "default_chart_days": 3
+}
