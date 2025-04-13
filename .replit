@@ -27,7 +27,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "swift main.swift"
+args = "swift CLI/main.swift"
 
 [deployment]
-run = ["sh", "-c", "swift main.swift"]
+run = ["sh", "-c", "swift CLI/main.swift"]
