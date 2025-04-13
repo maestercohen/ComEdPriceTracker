@@ -1,6 +1,9 @@
 import UIKit
 import SwiftUI
 
+// Note: With the modern SwiftUI lifecycle using @main in App.swift, 
+// this SceneDelegate is only used if you're not using the SwiftUI App protocol.
+// You can use either the App.swift approach (recommended for iOS 14+) or this traditional approach.
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?

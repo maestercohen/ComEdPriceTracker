@@ -1,6 +1,6 @@
 import UIKit
 
-@main
+// Removed @main attribute - now using the SwiftUI App struct as the entry point
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
