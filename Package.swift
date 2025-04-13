@@ -8,7 +8,8 @@ let package = Package(
         .iOS(.v15)
     ],
     products: [
-        .executable(name: "ComEdPriceTracker", targets: ["ComEdPriceTrackerCLI"])
+        .executable(name: "ComEdPriceTracker", targets: ["ComEdPriceTrackerCLI"]),
+        .library(name: "ComEdPriceTrackerApp", targets: ["ComEdPriceTrackerApp"])
     ],
     dependencies: [],
     targets: [
@@ -17,6 +18,16 @@ let package = Package(
             dependencies: [],
             path: ".",
             sources: ["main.swift"]
+        ),
+        .target(
+            name: "ComEdPriceTrackerApp",
+            dependencies: [],
+            path: "ComEdPriceTracker",
+            exclude: [],
+            resources: [.process("Resources")],
+            swiftSettings: [
+                .define("SWIFT_PACKAGE")
+            ]
         )
     ]
 )

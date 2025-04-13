@@ -74,3 +74,37 @@ This app does not collect any personal data. All user preferences are stored loc
 ## License
 
 This project is available under the MIT license. See the LICENSE file for more info.
+
+## Fixing "No such module 'UIKit'" Error
+
+If you encounter the "No such module 'UIKit'" error when opening the project in Xcode, follow these steps:
+
+1. **Check Target Membership**:
+   - In Xcode, select each Swift file that imports UIKit
+   - In the File Inspector panel (right panel), ensure the file is included in the main app target
+   - Check "Target Membership" for the main app target
+
+2. **Update Build Settings**:
+   - Select your project in the navigator
+   - Select the app target
+   - Go to "Build Settings" tab
+   - Search for "Framework Search Paths"
+   - Add entry: `$(SDKROOT)/System/Library/Frameworks`
+   
+3. **Set Proper iOS Deployment Target**:
+   - Go to the "General" tab for your target
+   - Make sure iOS Deployment Target is set to iOS 15.0 or later
+
+4. **Import UIKit Properly**:
+   - Ensure imports are at the top of the file and formatted correctly:
+   ```swift
+   import UIKit
+   import SwiftUI
+   ```
+
+5. **Alternative Solution**:
+   - Create a new iOS App project using Xcode's template
+   - Copy the source files from this repository into the new project
+   - This will ensure all proper framework references are set up correctly
+
+If you continue having issues, try cleaning the build folder (Product > Clean Build Folder) and restarting Xcode.

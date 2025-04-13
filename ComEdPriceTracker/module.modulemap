@@ -1,0 +1,19 @@
+framework module UIKit [system] {
+  header "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h"
+  export *
+}
+
+framework module Foundation [system] {
+  header "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h"
+  export *
+}
+
+framework module SwiftUI [system] {
+  header "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SwiftUI.framework/Headers/SwiftUI.h"
+  export *
+}
+
+framework module WidgetKit [system] {
+  header "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/WidgetKit.framework/Headers/WidgetKit.h"
+  export *
+}
