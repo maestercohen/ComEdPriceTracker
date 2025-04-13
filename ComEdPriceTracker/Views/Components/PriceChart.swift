@@ -91,11 +91,13 @@ struct PriceChart: View {
                     }
                     
                     // Show selected point info
-                    if let selectedPoint = selectedPoint {
-                        let index = priceData.firstIndex(where: { $0.id == selectedPoint.id }) ?? 0
+                    if selectedPoint != nil {
+                        // Safely unwrap the optional
+                        let point = selectedPoint!
+                        let index = priceData.firstIndex(where: { $0.id == point.id }) ?? 0
                         let xStep = geometry.size.width / CGFloat(priceData.count - 1)
                         let x = xStep * CGFloat(index)
-                        let y = yPosition(for: selectedPoint.price, in: geometry.size.height)
+                        let y = yPosition(for: point.price, in: geometry.size.height)
                         
                         // Highlight selected point
                         Circle()
@@ -104,19 +106,19 @@ struct PriceChart: View {
                             .position(x: x, y: y)
                         
                         Circle()
-                            .fill(circleColor(for: selectedPoint.price))
+                            .fill(circleColor(for: point.price))
                             .frame(width: 8, height: 8)
                             .position(x: x, y: y)
                         
                         // Show tooltip
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(formattedDate(selectedPoint.timestamp))
+                            Text(formattedDate(point.timestamp))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             
-                            Text("\(String(format: "%.2f", selectedPoint.price))¢")
+                            Text("\(String(format: "%.2f", point.price))¢")
                                 .font(.headline)
-                                .foregroundColor(circleColor(for: selectedPoint.price))
+                                .foregroundColor(circleColor(for: point.price))
                         }
                         .padding(8)
                         .background(Color(UIColor.systemBackground))
