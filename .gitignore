@@ -1,0 +1,23 @@
+# Xcode
+xcuserdata/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+DerivedData/
+
+# CocoaPods
+Pods/
+
+# Mac OS X
+.DS_Store
+
+# Other
+.cache/
+.upm/
+.config/
+.breakpoints
