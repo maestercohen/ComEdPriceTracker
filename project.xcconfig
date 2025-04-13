@@ -1,16 +1,13 @@
-// Configuration settings file format documentation can be found at:
-// https://help.apple.com/xcode/#/dev745c5c974
-
-// Basic project settings
-PRODUCT_NAME = ComEdPriceTracker
-PRODUCT_BUNDLE_IDENTIFIER = com.example.ComEdPriceTracker
-MARKETING_VERSION = 1.0.0
-CURRENT_PROJECT_VERSION = 1
-
-// Deployment settings
+// Project-wide Xcode configuration
+DEVELOPMENT_LANGUAGE = en
+SWIFT_VERSION = 5.0
+TARGETED_DEVICE_FAMILY = 1,2
+SUPPORTS_MACCATALYST = NO
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
 IPHONEOS_DEPLOYMENT_TARGET = 15.0
-TARGETED_DEVICE_FAMILY = 1,2 // iPhone and iPad
-
-// Executable settings
-EXECUTABLE_NAME = $(PRODUCT_NAME)
-EXECUTABLE_EXTENSION = app
+PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.ComEdPriceTracker
+MARKETING_VERSION = 1.0
+CURRENT_PROJECT_VERSION = 1
+INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight

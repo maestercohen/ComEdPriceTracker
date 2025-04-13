@@ -63,19 +63,9 @@ If issues persist, you can also create a new Xcode project and copy the source f
    - ComEdPriceTracker/Services
 3. Add the widget extension by following the standard Xcode widget creation workflow
 
-## Data Source
+## Fixing Common Xcode Errors
 
-This app uses data from [ComEd's Hourly Pricing API](https://hourlypricing.comed.com/live-prices/), which provides real-time and historical electricity pricing information for customers in the ComEd service territory.
-
-## Privacy
-
-This app does not collect any personal data. All user preferences are stored locally on your device using UserDefaults.
-
-## License
-
-This project is available under the MIT license. See the LICENSE file for more info.
-
-## Fixing "No such module 'UIKit'" Error
+### Fixing "No such module 'UIKit'" Error
 
 If you encounter the "No such module 'UIKit'" error when opening the project in Xcode, follow these steps:
 
@@ -107,4 +97,47 @@ If you encounter the "No such module 'UIKit'" error when opening the project in 
    - Copy the source files from this repository into the new project
    - This will ensure all proper framework references are set up correctly
 
-If you continue having issues, try cleaning the build folder (Product > Clean Build Folder) and restarting Xcode.
+### Fixing Localization Errors
+
+If you see errors related to localization such as "defaultLocalization not set", follow these steps:
+
+1. **Set Default Localization in Project Settings**:
+   - Select your project in the navigator
+   - Go to the "Info" tab
+   - Under "Localizations", ensure "English" is listed
+   - If not, click the "+" button and add "English"
+   - Set "Development Language" to "English" (en)
+
+2. **Verify Localization Files**:
+   - Ensure the project contains the proper localization structure:
+     - ComEdPriceTracker/Base.lproj/
+     - ComEdPriceTracker/en.lproj/
+   - Each should contain a Localizable.strings file
+
+3. **Add Default Localization to Package.swift**:
+   - If you're using Swift Package Manager, ensure your Package.swift includes:
+   ```swift
+   let package = Package(
+       name: "ComEdPriceTracker",
+       defaultLocalization: "en",
+       // ...rest of your package definition
+   )
+   ```
+
+4. **Clean and Rebuild**:
+   - Select Product > Clean Build Folder
+   - Build the project again
+
+If you continue having issues with any of these errors, try cleaning the build folder (Product > Clean Build Folder) and restarting Xcode.
+
+## Data Source
+
+This app uses data from [ComEd's Hourly Pricing API](https://hourlypricing.comed.com/live-prices/), which provides real-time and historical electricity pricing information for customers in the ComEd service territory.
+
+## Privacy
+
+This app does not collect any personal data. All user preferences are stored locally on your device using UserDefaults.
+
+## License
+
+This project is available under the MIT license. See the LICENSE file for more info.
