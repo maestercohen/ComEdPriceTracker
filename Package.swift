@@ -3,20 +3,20 @@ import PackageDescription
 
 let package = Package(
     name: "ComEdPriceTracker",
-    defaultLocalization: "en",
     platforms: [
+        .macOS(.v10_15),
         .iOS(.v15)
     ],
     products: [
-        .library(name: "ComEdPriceTracker", targets: ["ComEdPriceTracker"])
+        .executable(name: "ComEdPriceTracker", targets: ["ComEdPriceTrackerCLI"])
     ],
     dependencies: [],
     targets: [
-        .target(
-            name: "ComEdPriceTracker",
+        .executableTarget(
+            name: "ComEdPriceTrackerCLI", 
             dependencies: [],
             path: ".",
-            sources: ["ComEdPriceTracker"]
+            sources: ["main.swift"]
         )
     ]
 )
