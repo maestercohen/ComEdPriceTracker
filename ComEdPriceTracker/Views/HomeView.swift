@@ -1,135 +1,128 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var priceDataModel = PriceDataModel()
-    @State private var showRefreshAnimation = false
+    @StateObject private var priceDataStore = PriceDataStore()
+    @StateObject private var userSettings = UserSettings()
+    
+    // Timer for auto-refresh
+    @State private var timer: Timer?
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Current price display
-                    if let currentPrice = priceDataModel.currentPrice {
-                        PriceDisplay(price: currentPrice)
-                    } else if priceDataModel.isLoading {
-                        VStack {
-                            ProgressView()
-                                .scaleEffect(1.5)
-                                .padding()
-                            Text("Loading current price...")
-                                .foregroundColor(.secondary)
-                        }
-                        .frame(height: 200)
-                    } else if let error = priceDataModel.errorMessage {
-                        VStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .font(.system(size: 40))
-                                .foregroundColor(.orange)
-                                .padding()
-                            
-                            Text("Error Loading Data")
-                                .font(.headline)
-                            
-                            Text(error)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal)
-                            
-                            Button(action: {
-                                priceDataModel.fetchCurrentPrice()
-                            }) {
-                                Text("Try Again")
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 10)
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                            }
-                            .padding(.top, 10)
-                        }
-                        .frame(height: 200)
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(12)
-                        .shadow(radius: 3)
+            VStack(spacing: 20) {
+                // Price display component
+                PriceDisplay(price: priceDataStore.currentPrice, 
+                           highThreshold: userSettings.highPriceThreshold,
+                           lowThreshold: userSettings.lowPriceThreshold)
+                    .padding()
+                
+                VStack(alignment: .leading) {
+                    // Alert status
+                    if priceDataStore.currentPrice >= userSettings.highPriceThreshold {
+                        AlertBanner(message: "Price is above your high threshold!", type: .high)
+                    } else if priceDataStore.currentPrice <= userSettings.lowPriceThreshold {
+                        AlertBanner(message: "Price is below your low threshold!", type: .low)
                     }
                     
-                    Divider()
-                    
-                    // Today's hourly price chart
-                    VStack(alignment: .leading) {
-                        Text("Today's Hourly Prices")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        if priceDataModel.todayPrices.isEmpty && !priceDataModel.isLoading {
-                            Text("No price data available for today")
-                                .foregroundColor(.secondary)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        } else {
-                            PriceChart(prices: priceDataModel.todayPrices)
-                                .frame(height: 200)
-                                .padding(.horizontal)
-                        }
+                    // Last updated time
+                    HStack {
+                        Text("Last updated:")
+                            .font(.footnote)
+                        Text(Date(), style: .time)
+                            .font(.footnote)
+                            .fontWeight(.bold)
+                        Spacer()
                     }
-                    .padding(.vertical)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
-                    .shadow(radius: 3)
-                    
-                    // Advice based on current price
-                    if let currentPrice = priceDataModel.currentPrice {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Price Insight")
-                                .font(.headline)
-                            
-                            HStack {
-                                Image(systemName: currentPrice.price < 5.0 ? "lightbulb.fill" : "exclamationmark.triangle.fill")
-                                    .foregroundColor(currentPrice.price < 5.0 ? .green : (currentPrice.price < 14.0 ? .yellow : .red))
-                                
-                                Text(currentPrice.priceDescription)
-                                    .foregroundColor(.primary)
-                            }
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
-                        }
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(12)
-                        .shadow(radius: 3)
-                    }
+                    .padding(.top, 5)
                 }
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                // Manual refresh button
+                Button(action: {
+                    refreshData()
+                }) {
+                    Label("Refresh Price", systemImage: "arrow.clockwise")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
                 .padding()
-            }
-            .refreshable {
-                showRefreshAnimation = true
-                priceDataModel.fetchCurrentPrice()
-                priceDataModel.fetchFiveMinutePrices()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    showRefreshAnimation = false
+                .disabled(priceDataStore.isLoading)
+                
+                // Loading indicator
+                if priceDataStore.isLoading {
+                    ProgressView()
+                }
+                
+                // Error message display
+                if !priceDataStore.errorMessage.isEmpty {
+                    Text(priceDataStore.errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
                 }
             }
-            .navigationTitle("ComEd Price Tracker")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showRefreshAnimation = true
-                        priceDataModel.fetchCurrentPrice()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            showRefreshAnimation = false
-                        }
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                            .rotationEffect(.degrees(showRefreshAnimation ? 360 : 0))
-                            .animation(showRefreshAnimation ? Animation.linear(duration: 1).repeatCount(1, autoreverses: false) : .default, value: showRefreshAnimation)
-                    }
-                }
+            .navigationTitle("Current Price")
+            .onAppear {
+                refreshData()
+                startAutoRefresh()
+            }
+            .onDisappear {
+                stopAutoRefresh()
             }
         }
+    }
+    
+    // Refresh data method
+    private func refreshData() {
+        priceDataStore.fetchCurrentPrice()
+        checkPriceThresholds()
+    }
+    
+    // Start auto-refresh timer
+    private func startAutoRefresh() {
+        stopAutoRefresh() // Stop any existing timer
+        
+        let refreshSeconds = Double(userSettings.refreshInterval) * 60
+        timer = Timer.scheduledTimer(withTimeInterval: refreshSeconds, repeats: true) { _ in
+            refreshData()
+        }
+    }
+    
+    // Stop auto-refresh timer
+    private func stopAutoRefresh() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    // Check and send notifications based on thresholds
+    private func checkPriceThresholds() {
+        guard userSettings.notificationsEnabled else { return }
+        
+        if priceDataStore.currentPrice >= userSettings.highPriceThreshold {
+            NotificationService.shared.schedulePriceAlert(for: .high, price: priceDataStore.currentPrice)
+        } else if priceDataStore.currentPrice <= userSettings.lowPriceThreshold {
+            NotificationService.shared.schedulePriceAlert(for: .low, price: priceDataStore.currentPrice)
+        }
+    }
+}
+
+// Alert banner component
+struct AlertBanner: View {
+    let message: String
+    let type: PriceAlertType
+    
+    var body: some View {
+        HStack {
+            Image(systemName: type == .high ? "exclamationmark.triangle" : "checkmark.circle")
+            Text(message)
+                .font(.headline)
+            Spacer()
+        }
+        .padding()
+        .background(type == .high ? Color.red.opacity(0.2) : Color.green.opacity(0.2))
+        .foregroundColor(type == .high ? .red : .green)
+        .cornerRadius(8)
     }
 }
 

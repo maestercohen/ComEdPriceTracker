@@ -27,8 +27,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "swift run"
-waitForPort = 5000
+args = "swift main.swift"
 
 [deployment]
-run = ["sh", "-c", "swift run"]
+run = ["sh", "-c", "swift main.swift"]

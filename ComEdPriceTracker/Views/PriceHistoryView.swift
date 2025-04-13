@@ -1,380 +1,136 @@
 import SwiftUI
-import Charts
 
 struct PriceHistoryView: View {
-    @StateObject private var priceDataModel = PriceDataModel()
-    @State private var selectedTimeframe: Timeframe = .day
-    @State private var selectedDate: Date = Date()
+    @StateObject private var priceDataStore = PriceDataStore()
     
-    enum Timeframe: String, CaseIterable, Identifiable {
-        case day = "Day"
-        case week = "Week"
-        
-        var id: String { self.rawValue }
-    }
+    @State private var selectedTimeInterval: TimeInterval = .day
     
     var body: some View {
         NavigationView {
             VStack {
-                // Timeframe selector
-                Picker("Timeframe", selection: $selectedTimeframe) {
-                    ForEach(Timeframe.allCases) { timeframe in
-                        Text(timeframe.rawValue).tag(timeframe)
+                // Time interval selector
+                Picker("Time Interval", selection: $selectedTimeInterval) {
+                    ForEach(TimeInterval.allCases, id: \.self) { interval in
+                        Text(interval.rawValue).tag(interval)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal)
-                .onChange(of: selectedTimeframe) { newValue in
-                    if newValue == .week && priceDataModel.weeklyPrices.isEmpty {
-                        priceDataModel.fetchWeeklyPrices()
+                .padding()
+                
+                // Price chart
+                PriceChart(
+                    priceData: filteredPriceData,
+                    highThreshold: 10.0,
+                    lowThreshold: 2.0
+                )
+                .padding()
+                
+                // Stats section
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Text("Statistics")
+                            .font(.headline)
+                        Spacer()
                     }
+                    
+                    Divider()
+                    
+                    // Stats rows
+                    StatRow(title: "Average", value: averagePrice)
+                    StatRow(title: "Highest", value: highestPrice)
+                    StatRow(title: "Lowest", value: lowestPrice)
+                    StatRow(title: "Current", value: currentPrice)
+                }
+                .padding()
+                .background(Color(UIColor.secondarySystemBackground))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                // Loading indicator or refresh button
+                if priceDataStore.isLoading {
+                    ProgressView()
+                        .padding()
+                } else {
+                    Button("Refresh Data") {
+                        priceDataStore.fetchPriceHistory()
+                    }
+                    .padding()
                 }
                 
-                ScrollView {
-                    VStack(spacing: 16) {
-                        if selectedTimeframe == .day {
-                            // Day view
-                            VStack(alignment: .leading) {
-                                Text("Today's Hourly Prices")
-                                    .font(.headline)
-                                    .padding(.horizontal)
-                                
-                                if priceDataModel.todayPrices.isEmpty {
-                                    Text("No hourly price data available")
-                                        .foregroundColor(.secondary)
-                                        .padding()
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                } else {
-                                    // Price stat summary
-                                    HStack(spacing: 20) {
-                                        VStack {
-                                            Text("Low")
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                            Text(String(format: "%.1f¢", priceDataModel.todayPrices.map { $0.price }.min() ?? 0))
-                                                .foregroundColor(.green)
-                                                .font(.headline)
-                                        }
-                                        
-                                        VStack {
-                                            Text("Average")
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                            Text(String(format: "%.1f¢", priceDataModel.todayPrices.map { $0.price }.reduce(0, +) / Double(priceDataModel.todayPrices.count)))
-                                                .foregroundColor(.blue)
-                                                .font(.headline)
-                                        }
-                                        
-                                        VStack {
-                                            Text("High")
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                            Text(String(format: "%.1f¢", priceDataModel.todayPrices.map { $0.price }.max() ?? 0))
-                                                .foregroundColor(.red)
-                                                .font(.headline)
-                                        }
-                                    }
-                                    .padding()
-                                    .background(Color(.systemGray6))
-                                    .cornerRadius(10)
-                                    .padding(.horizontal)
-                                    
-                                    // Hourly chart
-                                    PriceChart(prices: priceDataModel.todayPrices)
-                                        .frame(height: 250)
-                                        .padding(.horizontal)
-                                }
-                            }
-                            .padding(.vertical)
-                            .background(Color(.systemBackground))
-                            .cornerRadius(12)
-                            .shadow(radius: 2)
-                            .padding(.horizontal)
-                            
-                            // 5-minute price detail
-                            VStack(alignment: .leading) {
-                                Text("Recent 5-Minute Prices")
-                                    .font(.headline)
-                                    .padding(.horizontal)
-                                
-                                if priceDataModel.fiveMinutePrices.isEmpty {
-                                    Text("No 5-minute price data available")
-                                        .foregroundColor(.secondary)
-                                        .padding()
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                } else {
-                                    // Price chart for 5-minute intervals
-                                    Chart {
-                                        ForEach(priceDataModel.fiveMinutePrices.prefix(12)) { pricePoint in
-                                            LineMark(
-                                                x: .value("Time", pricePoint.timestamp),
-                                                y: .value("Price", pricePoint.price)
-                                            )
-                                            .foregroundStyle(Color.blue)
-                                            
-                                            PointMark(
-                                                x: .value("Time", pricePoint.timestamp),
-                                                y: .value("Price", pricePoint.price)
-                                            )
-                                            .foregroundStyle(Color.blue)
-                                        }
-                                    }
-                                    .chartYScale(domain: [
-                                        min(0, (priceDataModel.fiveMinutePrices.map { $0.price }.min() ?? 0) - 1),
-                                        max(5, (priceDataModel.fiveMinutePrices.map { $0.price }.max() ?? 5) + 1)
-                                    ])
-                                    .chartXAxis {
-                                        AxisMarks(values: .stride(by: .minute, count: 15)) { _ in
-                                            AxisGridLine()
-                                            AxisTick()
-                                            AxisValueLabel(format: .dateTime.hour().minute())
-                                        }
-                                    }
-                                    .frame(height: 200)
-                                    .padding(.horizontal)
-                                    
-                                    // Recent prices list
-                                    VStack(alignment: .leading, spacing: 12) {
-                                        Text("Recent Readings")
-                                            .font(.subheadline)
-                                            .foregroundColor(.secondary)
-                                        
-                                        ForEach(priceDataModel.fiveMinutePrices.prefix(6)) { pricePoint in
-                                            HStack {
-                                                Text(formatTime(pricePoint.timestamp))
-                                                    .foregroundColor(.secondary)
-                                                
-                                                Spacer()
-                                                
-                                                Text(String(format: "%.1f¢", pricePoint.price))
-                                                    .foregroundColor(getPriceColor(pricePoint.price))
-                                                    .fontWeight(.medium)
-                                            }
-                                            .padding(.vertical, 4)
-                                            
-                                            if pricePoint.id != priceDataModel.fiveMinutePrices.prefix(6).last?.id {
-                                                Divider()
-                                            }
-                                        }
-                                    }
-                                    .padding()
-                                    .background(Color(.systemGray6))
-                                    .cornerRadius(10)
-                                    .padding(.horizontal)
-                                }
-                            }
-                            .padding(.vertical)
-                            .background(Color(.systemBackground))
-                            .cornerRadius(12)
-                            .shadow(radius: 2)
-                            .padding(.horizontal)
-                            
-                        } else {
-                            // Week view
-                            if priceDataModel.weeklyPrices.isEmpty {
-                                VStack {
-                                    if priceDataModel.isLoading {
-                                        ProgressView()
-                                            .padding()
-                                        Text("Loading weekly data...")
-                                            .foregroundColor(.secondary)
-                                    } else {
-                                        Text("No weekly price data available")
-                                            .foregroundColor(.secondary)
-                                            .padding()
-                                    }
-                                }
-                                .frame(height: 200)
-                                .frame(maxWidth: .infinity)
-                                .background(Color(.systemBackground))
-                                .cornerRadius(12)
-                                .shadow(radius: 2)
-                                .padding(.horizontal)
-                            } else {
-                                // Weekly average chart
-                                VStack(alignment: .leading) {
-                                    Text("Weekly Average Prices")
-                                        .font(.headline)
-                                        .padding(.horizontal)
-                                    
-                                    Chart {
-                                        ForEach(priceDataModel.weeklyPrices, id: \.date) { dailyData in
-                                            BarMark(
-                                                x: .value("Date", dailyData.date, unit: .day),
-                                                y: .value("Average Price", dailyData.averagePrice)
-                                            )
-                                            .foregroundStyle(Color.blue)
-                                        }
-                                    }
-                                    .chartXAxis {
-                                        AxisMarks(values: .stride(by: .day)) { value in
-                                            if let date = value.as(Date.self) {
-                                                AxisValueLabel {
-                                                    Text(formatDay(date))
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .frame(height: 200)
-                                    .padding(.horizontal)
-                                }
-                                .padding(.vertical)
-                                .background(Color(.systemBackground))
-                                .cornerRadius(12)
-                                .shadow(radius: 2)
-                                .padding(.horizontal)
-                                
-                                // Weekly high/low chart
-                                VStack(alignment: .leading) {
-                                    Text("Weekly Price Range")
-                                        .font(.headline)
-                                        .padding(.horizontal)
-                                    
-                                    Chart {
-                                        ForEach(priceDataModel.weeklyPrices, id: \.date) { dailyData in
-                                            RectangleMark(
-                                                x: .value("Date", dailyData.date, unit: .day),
-                                                yStart: .value("Min Price", dailyData.minPrice),
-                                                yEnd: .value("Max Price", dailyData.maxPrice),
-                                                width: 20
-                                            )
-                                            .foregroundStyle(
-                                                .linearGradient(
-                                                    colors: [.green, .yellow, .red],
-                                                    startPoint: .bottom,
-                                                    endPoint: .top
-                                                )
-                                            )
-                                        }
-                                    }
-                                    .chartXAxis {
-                                        AxisMarks(values: .stride(by: .day)) { value in
-                                            if let date = value.as(Date.self) {
-                                                AxisValueLabel {
-                                                    Text(formatDay(date))
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .frame(height: 200)
-                                    .padding(.horizontal)
-                                }
-                                .padding(.vertical)
-                                .background(Color(.systemBackground))
-                                .cornerRadius(12)
-                                .shadow(radius: 2)
-                                .padding(.horizontal)
-                                
-                                // Weekly stats summary
-                                VStack(alignment: .leading) {
-                                    Text("Weekly Statistics")
-                                        .font(.headline)
-                                        .padding(.horizontal)
-                                    
-                                    // Weekly stat summary
-                                    VStack(spacing: 12) {
-                                        ForEach(priceDataModel.weeklyPrices.prefix(7), id: \.date) { dailyData in
-                                            VStack(spacing: 8) {
-                                                HStack {
-                                                    Text(formatDate(dailyData.date))
-                                                        .fontWeight(.medium)
-                                                    
-                                                    Spacer()
-                                                    
-                                                    Text("Avg: \(String(format: "%.1f¢", dailyData.averagePrice))")
-                                                        .foregroundColor(.blue)
-                                                        .fontWeight(.medium)
-                                                }
-                                                
-                                                HStack {
-                                                    Text("Low: \(String(format: "%.1f¢", dailyData.minPrice))")
-                                                        .foregroundColor(.green)
-                                                    
-                                                    Spacer()
-                                                    
-                                                    Text("High: \(String(format: "%.1f¢", dailyData.maxPrice))")
-                                                        .foregroundColor(.red)
-                                                }
-                                                .font(.subheadline)
-                                            }
-                                            .padding(.vertical, 8)
-                                            
-                                            if dailyData.date != priceDataModel.weeklyPrices.prefix(7).last?.date {
-                                                Divider()
-                                            }
-                                        }
-                                    }
-                                    .padding()
-                                    .background(Color(.systemGray6))
-                                    .cornerRadius(10)
-                                    .padding(.horizontal)
-                                }
-                                .padding(.vertical)
-                                .background(Color(.systemBackground))
-                                .cornerRadius(12)
-                                .shadow(radius: 2)
-                                .padding(.horizontal)
-                            }
-                        }
-                    }
-                    .padding(.vertical)
+                // Error message
+                if !priceDataStore.errorMessage.isEmpty {
+                    Text(priceDataStore.errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
                 }
             }
             .navigationTitle("Price History")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        if selectedTimeframe == .day {
-                            priceDataModel.fetchTodayPrices()
-                            priceDataModel.fetchFiveMinutePrices()
-                        } else {
-                            priceDataModel.fetchWeeklyPrices()
-                        }
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                }
-            }
             .onAppear {
-                if priceDataModel.todayPrices.isEmpty {
-                    priceDataModel.fetchTodayPrices()
-                }
-                
-                if priceDataModel.fiveMinutePrices.isEmpty {
-                    priceDataModel.fetchFiveMinutePrices()
-                }
+                priceDataStore.fetchPriceHistory()
             }
         }
     }
     
-    // Helper functions
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return formatter.string(from: date)
+    // Filter price data based on selected time interval
+    private var filteredPriceData: [PricePoint] {
+        let now = Date()
+        
+        return priceDataStore.priceHistory.filter { pricePoint in
+            switch selectedTimeInterval {
+            case .day:
+                return pricePoint.timestamp > Calendar.current.date(byAdding: .day, value: -1, to: now) ?? now
+            case .week:
+                return pricePoint.timestamp > Calendar.current.date(byAdding: .day, value: -7, to: now) ?? now
+            case .month:
+                return pricePoint.timestamp > Calendar.current.date(byAdding: .month, value: -1, to: now) ?? now
+            }
+        }
     }
     
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, MMM d"
-        return formatter.string(from: date)
+    // Calculate average price
+    private var averagePrice: Double {
+        guard !filteredPriceData.isEmpty else { return 0.0 }
+        let sum = filteredPriceData.reduce(0.0) { $0 + $1.price }
+        return sum / Double(filteredPriceData.count)
     }
     
-    private func formatDay(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E"
-        return formatter.string(from: date)
+    // Calculate highest price
+    private var highestPrice: Double {
+        filteredPriceData.map { $0.price }.max() ?? 0.0
     }
     
-    private func getPriceColor(_ price: Double) -> Color {
-        if price < 0 {
-            return .green
-        } else if price < 5.0 {
-            return .green
-        } else if price < 14.0 {
-            return .yellow
-        } else {
-            return .red
+    // Calculate lowest price
+    private var lowestPrice: Double {
+        filteredPriceData.map { $0.price }.min() ?? 0.0
+    }
+    
+    // Get current price
+    private var currentPrice: Double {
+        filteredPriceData.last?.price ?? 0.0
+    }
+}
+
+// Time interval enum
+enum TimeInterval: String, CaseIterable {
+    case day = "24h"
+    case week = "Week"
+    case month = "Month"
+}
+
+// Stats row component
+struct StatRow: View {
+    let title: String
+    let value: Double
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text("\(String(format: "%.2f", value))¢")
+                .fontWeight(.semibold)
         }
     }
 }

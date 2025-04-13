@@ -1,120 +1,274 @@
 import SwiftUI
-import Charts
 
 struct PriceChart: View {
-    let prices: [HourlyPrice]
-    @Environment(\.colorScheme) var colorScheme
+    let priceData: [PricePoint]
+    let highThreshold: Double
+    let lowThreshold: Double
     
-    private var priceRange: (min: Double, max: Double) {
-        let priceValues = prices.map { $0.price }
-        let minPrice = priceValues.min() ?? 0
-        let maxPrice = priceValues.max() ?? 0
-        
-        // Ensure there's always some vertical space in the chart
-        return (min: min(0, minPrice - 1), max: max(5, maxPrice + 1))
+    @State private var selectedPoint: PricePoint?
+    
+    private var maxPrice: Double {
+        let maxDataPrice = priceData.map { $0.price }.max() ?? 0
+        return max(maxDataPrice, highThreshold) * 1.1 // 10% margin above max
+    }
+    
+    private var minPrice: Double {
+        let minDataPrice = priceData.map { $0.price }.min() ?? 0
+        return min(minDataPrice, lowThreshold) * 0.9 // 10% margin below min
     }
     
     var body: some View {
-        Chart {
-            ForEach(prices) { hourlyPrice in
-                BarMark(
-                    x: .value("Hour", hourlyPrice.formattedHour),
-                    y: .value("Price", hourlyPrice.price)
+        VStack {
+            GeometryReader { geometry in
+                ZStack {
+                    // Draw chart grid lines
+                    VStack(alignment: .leading) {
+                        ForEach(0..<5) { i in
+                            Divider()
+                            Spacer()
+                                .frame(maxHeight: .infinity)
+                        }
+                        Divider()
+                    }
+                    
+                    // High price threshold line
+                    if highThreshold > 0 {
+                        ThresholdLine(
+                            threshold: highThreshold,
+                            minPrice: minPrice,
+                            maxPrice: maxPrice,
+                            width: geometry.size.width,
+                            height: geometry.size.height,
+                            color: .red
+                        )
+                    }
+                    
+                    // Low price threshold line
+                    if lowThreshold > 0 {
+                        ThresholdLine(
+                            threshold: lowThreshold,
+                            minPrice: minPrice,
+                            maxPrice: maxPrice,
+                            width: geometry.size.width,
+                            height: geometry.size.height,
+                            color: .green
+                        )
+                    }
+                    
+                    // Price data points
+                    if priceData.count > 1 {
+                        // Path for the price line
+                        Path { path in
+                            let xStep = geometry.size.width / CGFloat(priceData.count - 1)
+                            
+                            guard let firstPoint = priceData.first else { return }
+                            let y = yPosition(for: firstPoint.price, in: geometry.size.height)
+                            path.move(to: CGPoint(x: 0, y: y))
+                            
+                            for (index, point) in priceData.dropFirst().enumerated() {
+                                let x = xStep * CGFloat(index + 1)
+                                let y = yPosition(for: point.price, in: geometry.size.height)
+                                path.addLine(to: CGPoint(x: x, y: y))
+                            }
+                        }
+                        .stroke(Color.blue, lineWidth: 2)
+                        
+                        // Draw data points
+                        ForEach(0..<priceData.count, id: \.self) { index in
+                            let point = priceData[index]
+                            let xStep = geometry.size.width / CGFloat(priceData.count - 1)
+                            let x = xStep * CGFloat(index)
+                            let y = yPosition(for: point.price, in: geometry.size.height)
+                            
+                            Circle()
+                                .fill(circleColor(for: point.price))
+                                .frame(width: 6, height: 6)
+                                .position(x: x, y: y)
+                                .onTapGesture {
+                                    selectedPoint = point
+                                }
+                        }
+                    }
+                    
+                    // Show selected point info
+                    if let selectedPoint = selectedPoint {
+                        let index = priceData.firstIndex(where: { $0.id == selectedPoint.id }) ?? 0
+                        let xStep = geometry.size.width / CGFloat(priceData.count - 1)
+                        let x = xStep * CGFloat(index)
+                        let y = yPosition(for: selectedPoint.price, in: geometry.size.height)
+                        
+                        // Highlight selected point
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 12, height: 12)
+                            .position(x: x, y: y)
+                        
+                        Circle()
+                            .fill(circleColor(for: selectedPoint.price))
+                            .frame(width: 8, height: 8)
+                            .position(x: x, y: y)
+                        
+                        // Show tooltip
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(formattedDate(selectedPoint.timestamp))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            Text("\(String(format: "%.2f", selectedPoint.price))¢")
+                                .font(.headline)
+                                .foregroundColor(circleColor(for: selectedPoint.price))
+                        }
+                        .padding(8)
+                        .background(Color(UIColor.systemBackground))
+                        .cornerRadius(8)
+                        .shadow(radius: 3)
+                        .position(
+                            x: min(max(x, 80), geometry.size.width - 80),
+                            y: max(y - 50, 35)
+                        )
+                    }
+                }
+                .gesture(DragGesture(minimumDistance: 0)
+                    .onChanged { value in
+                        if priceData.count > 1 {
+                            let xStep = geometry.size.width / CGFloat(priceData.count - 1)
+                            let index = min(Int(value.location.x / xStep), priceData.count - 1)
+                            if index >= 0 && index < priceData.count {
+                                selectedPoint = priceData[index]
+                            }
+                        }
+                    }
+                    .onEnded { _ in
+                        // Keep the selected point visible
+                    }
                 )
-                .foregroundStyle(getBarColor(hourlyPrice.price))
-                .annotation(position: .top) {
-                    if hourlyPrice.price < 0 || hourlyPrice.price > 10 {
-                        Text("\(String(format: "%.1f", hourlyPrice.price))")
-                            .font(.system(size: 8))
-                            .foregroundColor(.secondary)
-                    }
+                .onTapGesture {
+                    // Clear selection when tapping outside of data points
+                    selectedPoint = nil
                 }
             }
             
-            RuleMark(y: .value("Low Price Threshold", UserSettings.shared.lowPriceThreshold))
-                .foregroundStyle(.green.opacity(0.7))
-                .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
-                .annotation(position: .trailing) {
-                    Text("Low")
-                        .font(.caption2)
-                        .foregroundColor(.green)
+            // X-axis labels (time)
+            HStack {
+                if let first = priceData.first {
+                    Text(formattedTime(first.timestamp))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
-            
-            RuleMark(y: .value("High Price Threshold", UserSettings.shared.highPriceThreshold))
-                .foregroundStyle(.red.opacity(0.7))
-                .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
-                .annotation(position: .trailing) {
-                    Text("High")
-                        .font(.caption2)
-                        .foregroundColor(.red)
+                
+                Spacer()
+                
+                if priceData.count > 1, let middle = priceData[priceData.count / 2] {
+                    Text(formattedTime(middle.timestamp))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
-        }
-        .chartYScale(domain: priceRange.min...priceRange.max)
-        .chartXAxis {
-            AxisMarks(values: .automatic(desiredCount: 12)) { _ in
-                AxisGridLine()
-                AxisTick()
-                AxisValueLabel()
-            }
-        }
-        .chartYAxis {
-            AxisMarks(position: .leading) { value in
-                AxisGridLine()
-                AxisTick()
-                AxisValueLabel {
-                    if let doubleValue = value.as(Double.self) {
-                        Text("\(String(format: "%.1f¢", doubleValue))")
-                    }
+                
+                Spacer()
+                
+                if let last = priceData.last {
+                    Text(formattedTime(last.timestamp))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
             }
+            .padding(.horizontal, 4)
         }
+        .padding()
+        .aspectRatio(16/9, contentMode: .fit)
+        .background(Color(UIColor.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
     }
     
-    private func getBarColor(_ price: Double) -> Color {
-        if price < 0 {
-            return .green
-        } else if price < UserSettings.shared.lowPriceThreshold {
-            return .green
-        } else if price < UserSettings.shared.highPriceThreshold {
-            return .yellow
-        } else {
+    // Helper function to calculate y position
+    private func yPosition(for price: Double, in height: CGFloat) -> CGFloat {
+        let range = maxPrice - minPrice
+        if range == 0 { return height / 2 }
+        
+        let relativePosition = 1 - ((price - minPrice) / range)
+        return CGFloat(relativePosition) * height
+    }
+    
+    // Helper function to format time
+    private func formattedTime(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter.string(from: date)
+    }
+    
+    // Helper function to format date
+    private func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, h:mm a"
+        return formatter.string(from: date)
+    }
+    
+    // Helper function to determine point color
+    private func circleColor(for price: Double) -> Color {
+        if price >= highThreshold {
             return .red
+        } else if price <= lowThreshold {
+            return .green
+        } else {
+            return .blue
         }
+    }
+}
+
+// Threshold line component
+struct ThresholdLine: View {
+    let threshold: Double
+    let minPrice: Double
+    let maxPrice: Double
+    let width: CGFloat
+    let height: CGFloat
+    let color: Color
+    
+    var body: some View {
+        let range = maxPrice - minPrice
+        if range == 0 { return EmptyView().eraseToAnyView() }
+        
+        let relativePosition = 1 - ((threshold - minPrice) / range)
+        let y = CGFloat(relativePosition) * height
+        
+        return HStack {
+            Text(String(format: "%.1f¢", threshold))
+                .font(.caption)
+                .foregroundColor(color)
+                .padding(.horizontal, 4)
+                .background(Color(UIColor.systemBackground))
+            
+            Rectangle()
+                .fill(color)
+                .frame(height: 1)
+        }
+        .position(x: width / 2, y: y)
+        .eraseToAnyView()
+    }
+}
+
+extension View {
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
     }
 }
 
 struct PriceChart_Previews: PreviewProvider {
     static var previews: some View {
-        // Create sample data for preview
-        let sampleData: [HourlyPrice] = [
-            HourlyPrice(price: 1.5, hour: 0, date: Date()),
-            HourlyPrice(price: 2.3, hour: 1, date: Date()),
-            HourlyPrice(price: -0.5, hour: 2, date: Date()),
-            HourlyPrice(price: 0.7, hour: 3, date: Date()),
-            HourlyPrice(price: 1.2, hour: 4, date: Date()),
-            HourlyPrice(price: 3.5, hour: 5, date: Date()),
-            HourlyPrice(price: 6.8, hour: 6, date: Date()),
-            HourlyPrice(price: 8.3, hour: 7, date: Date()),
-            HourlyPrice(price: 10.1, hour: 8, date: Date()),
-            HourlyPrice(price: 12.5, hour: 9, date: Date()),
-            HourlyPrice(price: 15.3, hour: 10, date: Date()),
-            HourlyPrice(price: 14.7, hour: 11, date: Date()),
-            HourlyPrice(price: 10.2, hour: 12, date: Date()),
-            HourlyPrice(price: 8.5, hour: 13, date: Date()),
-            HourlyPrice(price: 7.2, hour: 14, date: Date()),
-            HourlyPrice(price: 5.8, hour: 15, date: Date()),
-            HourlyPrice(price: 4.3, hour: 16, date: Date()),
-            HourlyPrice(price: 3.9, hour: 17, date: Date()),
-            HourlyPrice(price: 6.7, hour: 18, date: Date()),
-            HourlyPrice(price: 9.8, hour: 19, date: Date()),
-            HourlyPrice(price: 8.6, hour: 20, date: Date()),
-            HourlyPrice(price: 5.3, hour: 21, date: Date()),
-            HourlyPrice(price: 2.4, hour: 22, date: Date()),
-            HourlyPrice(price: 1.1, hour: 23, date: Date())
+        let sampleData: [PricePoint] = [
+            PricePoint(id: UUID(), millisUTC: 1642032000000, price: 3.5),
+            PricePoint(id: UUID(), millisUTC: 1642035600000, price: 4.2),
+            PricePoint(id: UUID(), millisUTC: 1642039200000, price: 6.8),
+            PricePoint(id: UUID(), millisUTC: 1642042800000, price: 9.3),
+            PricePoint(id: UUID(), millisUTC: 1642046400000, price: 12.1),
+            PricePoint(id: UUID(), millisUTC: 1642050000000, price: 8.7),
+            PricePoint(id: UUID(), millisUTC: 1642053600000, price: 5.4),
+            PricePoint(id: UUID(), millisUTC: 1642057200000, price: 2.1)
         ]
         
-        return PriceChart(prices: sampleData)
-            .frame(height: 250)
+        PriceChart(priceData: sampleData, highThreshold: 10.0, lowThreshold: 2.5)
             .padding()
+            .previewLayout(.sizeThatFits)
     }
 }

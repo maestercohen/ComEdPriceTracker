@@ -1,102 +1,63 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var settings = UserSettings.shared
-    @State private var isShowingResetAlert = false
-    
-    // Local state to track slider values before committing
-    @State private var highThreshold: Double = UserSettings.shared.highPriceThreshold
-    @State private var lowThreshold: Double = UserSettings.shared.lowPriceThreshold
+    @StateObject private var userSettings = UserSettings()
+    @State private var notificationPermissionGranted = false
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Price Threshold Settings")) {
-                    VStack(alignment: .leading) {
-                        Text("High Price Threshold: \(String(format: "%.1f", highThreshold))¢")
-                            .fontWeight(.medium)
-                        
-                        Slider(value: $highThreshold, in: 6...20, step: 0.5) { editing in
-                            if !editing {
-                                settings.highPriceThreshold = highThreshold
-                            }
-                        }
-                        .accentColor(.red)
-                        
-                        Text("You'll be notified when the price exceeds this threshold")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.vertical, 4)
+                // Price thresholds section
+                Section(header: Text("Price Thresholds")) {
+                    ThresholdEditor(
+                        threshold: $userSettings.highPriceThreshold,
+                        title: "High Price Threshold",
+                        description: "Get notified when price exceeds this value",
+                        iconName: "arrow.up.circle.fill",
+                        color: .red
+                    )
                     
-                    VStack(alignment: .leading) {
-                        Text("Low Price Threshold: \(String(format: "%.1f", lowThreshold))¢")
-                            .fontWeight(.medium)
-                        
-                        Slider(value: $lowThreshold, in: 0...5, step: 0.5) { editing in
-                            if !editing {
-                                settings.lowPriceThreshold = lowThreshold
-                            }
-                        }
-                        .accentColor(.green)
-                        
-                        Text("You'll be notified when the price drops below this threshold")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.vertical, 4)
-                    
-                    Toggle("Negative Price Alerts", isOn: $settings.negativePriceAlerts)
-                        .tint(.blue)
+                    ThresholdEditor(
+                        threshold: $userSettings.lowPriceThreshold,
+                        title: "Low Price Threshold",
+                        description: "Get notified when price falls below this value",
+                        iconName: "arrow.down.circle.fill",
+                        color: .green
+                    )
                 }
                 
-                Section(header: Text("Notification Settings")) {
-                    Toggle("Enable Notifications", isOn: $settings.notificationsEnabled)
-                        .tint(.blue)
+                // Notification settings section
+                Section(header: Text("Notifications")) {
+                    Toggle("Enable Notifications", isOn: $userSettings.notificationsEnabled)
+                        .onChange(of: userSettings.notificationsEnabled) { enabled in
+                            if enabled {
+                                requestNotificationPermission()
+                            }
+                        }
                     
-                    if settings.notificationsEnabled {
+                    if !notificationPermissionGranted && userSettings.notificationsEnabled {
                         HStack {
-                            Text("Refresh Interval")
-                            Spacer()
-                            Picker("Refresh Interval", selection: $settings.refreshInterval) {
-                                Text("5 minutes").tag(5)
-                                Text("15 minutes").tag(15)
-                                Text("30 minutes").tag(30)
-                                Text("60 minutes").tag(60)
-                            }
-                            .pickerStyle(MenuPickerStyle())
-                            .tint(.blue)
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundColor(.orange)
+                            Text("Notification permission required")
+                                .font(.footnote)
+                                .foregroundColor(.orange)
                         }
                     }
                 }
                 
-                Section(header: Text("Widget Settings")) {
-                    HStack {
-                        Text("Widget Update Frequency")
-                        Spacer()
-                        Picker("Widget Update Frequency", selection: $settings.widgetUpdateFrequency) {
-                            Text("15 minutes").tag(15)
-                            Text("30 minutes").tag(30)
-                            Text("60 minutes").tag(60)
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .tint(.blue)
+                // Refresh interval section
+                Section(header: Text("Refresh Interval")) {
+                    Picker("Auto-refresh every", selection: $userSettings.refreshInterval) {
+                        Text("5 minutes").tag(5)
+                        Text("15 minutes").tag(15)
+                        Text("30 minutes").tag(30)
+                        Text("1 hour").tag(60)
                     }
+                    .pickerStyle(DefaultPickerStyle())
                 }
                 
-                Section {
-                    Button(action: {
-                        isShowingResetAlert = true
-                    }) {
-                        HStack {
-                            Spacer()
-                            Text("Reset to Default Settings")
-                                .foregroundColor(.red)
-                            Spacer()
-                        }
-                    }
-                }
-                
+                // About section
                 Section(header: Text("About")) {
                     HStack {
                         Text("Version")
@@ -105,42 +66,59 @@ struct SettingsView: View {
                             .foregroundColor(.secondary)
                     }
                     
-                    Link(destination: URL(string: "https://hourlypricing.comed.com/")!) {
-                        HStack {
-                            Text("ComEd Hourly Pricing")
-                            Spacer()
-                            Image(systemName: "link")
-                        }
+                    HStack {
+                        Text("Data Source")
+                        Spacer()
+                        Text("ComEd Hourly Pricing")
+                            .foregroundColor(.secondary)
                     }
                     
-                    ThresholdEditor()
+                    Link(destination: URL(string: "https://hourlypricing.comed.com/live-prices/")!) {
+                        HStack {
+                            Text("Visit ComEd Pricing Website")
+                            Spacer()
+                            Image(systemName: "arrow.up.right.square")
+                        }
+                    }
+                }
+                
+                // Reset button section
+                Section {
+                    Button("Reset All Settings") {
+                        userSettings.resetToDefaults()
+                    }
+                    .foregroundColor(.red)
                 }
             }
             .navigationTitle("Settings")
-            .alert(isPresented: $isShowingResetAlert) {
-                Alert(
-                    title: Text("Reset Settings"),
-                    message: Text("Are you sure you want to reset all settings to default values?"),
-                    primaryButton: .destructive(Text("Reset")) {
-                        resetToDefaults()
-                    },
-                    secondaryButton: .cancel()
-                )
+            .onAppear {
+                checkNotificationPermission()
             }
         }
     }
     
-    private func resetToDefaults() {
-        settings.highPriceThreshold = 14.0
-        settings.lowPriceThreshold = 2.0
-        settings.negativePriceAlerts = true
-        settings.notificationsEnabled = true
-        settings.refreshInterval = 15
-        settings.widgetUpdateFrequency = 30
-        
-        // Update local state
-        highThreshold = settings.highPriceThreshold
-        lowThreshold = settings.lowPriceThreshold
+    // Check notification permission status
+    private func checkNotificationPermission() {
+        NotificationService.shared.checkAuthorizationStatus { granted in
+            notificationPermissionGranted = granted
+            
+            // If notifications are enabled but permission not granted, update the setting
+            if userSettings.notificationsEnabled && !granted {
+                userSettings.notificationsEnabled = false
+            }
+        }
+    }
+    
+    // Request notification permission
+    private func requestNotificationPermission() {
+        NotificationService.shared.requestAuthorization { granted in
+            notificationPermissionGranted = granted
+            
+            // If permission not granted, update the setting
+            if !granted {
+                userSettings.notificationsEnabled = false
+            }
+        }
     }
 }
 

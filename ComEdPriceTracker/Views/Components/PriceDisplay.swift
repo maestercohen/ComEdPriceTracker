@@ -1,103 +1,76 @@
 import SwiftUI
 
 struct PriceDisplay: View {
-    let price: CurrentPrice
-    @Environment(\.colorScheme) var colorScheme
+    let price: Double
+    let highThreshold: Double
+    let lowThreshold: Double
     
     var body: some View {
-        VStack(spacing: 16) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Current Price")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                    
-                    HStack(alignment: .lastTextBaseline, spacing: 4) {
-                        Text(price.formattedPrice)
-                            .font(.system(size: 48, weight: .bold, design: .rounded))
-                            .foregroundColor(price.priceColor)
-                        
-                        Text("per kWh")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
-                Spacer()
-                
-                // Price indicator
-                VStack {
-                    ZStack {
-                        Circle()
-                            .fill(price.priceColor.opacity(0.2))
-                            .frame(width: 60, height: 60)
-                        
-                        Circle()
-                            .stroke(price.priceColor, lineWidth: 3)
-                            .frame(width: 60, height: 60)
-                        
-                        if price.isNegative {
-                            Image(systemName: "dollarsign.arrow.circlepath")
-                                .font(.system(size: 24))
-                                .foregroundColor(price.priceColor)
-                        } else if price.price < 5.0 {
-                            Image(systemName: "leaf.fill")
-                                .font(.system(size: 24))
-                                .foregroundColor(price.priceColor)
-                        } else if price.price < 14.0 {
-                            Image(systemName: "exclamationmark.circle")
-                                .font(.system(size: 24))
-                                .foregroundColor(price.priceColor)
-                        } else {
-                            Image(systemName: "bolt.fill")
-                                .font(.system(size: 24))
-                                .foregroundColor(price.priceColor)
-                        }
-                    }
-                    
-                    Text(getPriceLabel(price.price))
-                        .font(.caption)
-                        .foregroundColor(price.priceColor)
-                        .fontWeight(.medium)
-                }
-            }
+        VStack {
+            Text("Current Electricity Price")
+                .font(.headline)
+                .foregroundColor(.secondary)
             
-            // Updated time and description
-            VStack(alignment: .leading, spacing: 8) {
-                Text(price.priceDescription)
-                    .font(.subheadline)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .background(colorScheme == .dark ? Color(.systemGray5) : Color(.systemGray6))
-                    .cornerRadius(8)
-                
-                Text("Last updated: \(formatTime(price.timestamp))")
-                    .font(.caption)
+            HStack(alignment: .lastTextBaseline, spacing: 2) {
+                Text("\(String(format: "%.2f", price))")
+                    .font(.system(size: 56, weight: .bold, design: .rounded))
+                    .foregroundColor(priceColor)
+                Text("¢/kWh")
+                    .font(.title2)
                     .foregroundColor(.secondary)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 5)
+            
+            // Price status indicator
+            HStack {
+                Image(systemName: statusIcon)
+                    .foregroundColor(priceColor)
+                Text(statusText)
+                    .foregroundColor(priceColor)
+            }
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(priceColor.opacity(0.1))
+            )
         }
         .padding()
-        .background(colorScheme == .dark ? Color(.systemGray6) : Color.white)
-        .cornerRadius(16)
-        .shadow(radius: 3)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(UIColor.secondarySystemBackground))
+        )
     }
     
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a, MMM d"
-        return formatter.string(from: date)
-    }
-    
-    private func getPriceLabel(_ price: Double) -> String {
-        if price < 0 {
-            return "NEGATIVE"
-        } else if price < 5.0 {
-            return "LOW"
-        } else if price < 14.0 {
-            return "MEDIUM"
+    // Computed property for price color
+    private var priceColor: Color {
+        if price >= highThreshold {
+            return .red
+        } else if price <= lowThreshold {
+            return .green
         } else {
-            return "HIGH"
+            return .blue
+        }
+    }
+    
+    // Computed property for status text
+    private var statusText: String {
+        if price >= highThreshold {
+            return "High Price"
+        } else if price <= lowThreshold {
+            return "Low Price"
+        } else {
+            return "Normal Price"
+        }
+    }
+    
+    // Computed property for status icon
+    private var statusIcon: String {
+        if price >= highThreshold {
+            return "arrow.up.circle.fill"
+        } else if price <= lowThreshold {
+            return "arrow.down.circle.fill"
+        } else {
+            return "equal.circle.fill"
         }
     }
 }
@@ -105,17 +78,11 @@ struct PriceDisplay: View {
 struct PriceDisplay_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            PriceDisplay(price: CurrentPrice(price: 2.5, timestamp: Date(), millicents: 25))
-                .padding()
-            
-            PriceDisplay(price: CurrentPrice(price: 8.7, timestamp: Date(), millicents: 87))
-                .padding()
-            
-            PriceDisplay(price: CurrentPrice(price: 16.3, timestamp: Date(), millicents: 163))
-                .padding()
-            
-            PriceDisplay(price: CurrentPrice(price: -1.2, timestamp: Date(), millicents: -12))
-                .padding()
+            PriceDisplay(price: 12.5, highThreshold: 10.0, lowThreshold: 2.0)
+            PriceDisplay(price: 5.5, highThreshold: 10.0, lowThreshold: 2.0)
+            PriceDisplay(price: 1.5, highThreshold: 10.0, lowThreshold: 2.0)
         }
+        .padding()
+        .previewLayout(.sizeThatFits)
     }
 }

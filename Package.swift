@@ -1,23 +1,22 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
     name: "ComEdPriceTracker",
+    defaultLocalization: "en",
     platforms: [
-        .macOS(.v12)
+        .iOS(.v15)
     ],
     products: [
-        .executable(name: "ComEdPriceTracker", targets: ["ComEdPriceTracker"])
+        .library(name: "ComEdPriceTracker", targets: ["ComEdPriceTracker"])
     ],
-    dependencies: [
-        // Add any external dependencies here
-    ],
+    dependencies: [],
     targets: [
-        .executableTarget(
+        .target(
             name: "ComEdPriceTracker",
             dependencies: [],
-            path: "ComEdPriceTracker",
-            exclude: ["Views", "Models", "Services", "Assets.xcassets", "Info.plist"]
+            path: ".",
+            sources: ["ComEdPriceTracker"]
         )
     ]
 )
