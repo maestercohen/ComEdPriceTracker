@@ -26,10 +26,38 @@ An iOS app that displays ComEd's hourly electricity pricing data as a homescreen
 - Xcode 13.0 or later
 - Swift 5.5 or later
 
+## Installation
+
+1. Clone this repository:
+   ```
+   git clone https://github.com/maestercohen/ComEdPriceTracker.git
+   ```
+
+2. Open the project in Xcode:
+   ```
+   cd ComEdPriceTracker
+   open ComEdPriceTracker.xcodeproj
+   ```
+
+3. Select your development team in Xcode's signing & capabilities settings
+
+4. Build and run the app on your iOS device or simulator
+
 ## API
 
 This app uses the ComEd Hourly Pricing API available at:
 https://hourlypricing.comed.com/hp-api/
+
+The API endpoints used include:
+- Current 5-minute price: `https://hourlypricing.comed.com/api?type=5minutefeed`
+- Hourly price history: `https://hourlypricing.comed.com/api?type=hourlyfeed`
+- Day-ahead prices: `https://hourlypricing.comed.com/api?type=dayahead`
+
+No API key is required for these endpoints.
+
+## Screenshots
+
+(Screenshots will be added after the app is deployed)
 
 ## License
 
