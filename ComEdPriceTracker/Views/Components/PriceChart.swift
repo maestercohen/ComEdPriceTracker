@@ -152,6 +152,7 @@ struct PriceChart: View {
             
             // X-axis labels (time)
             HStack {
+                // First label - priceData.first is already Optional so this is correct
                 if let first = priceData.first {
                     Text(formattedTime(first.timestamp))
                         .font(.caption)
@@ -160,7 +161,9 @@ struct PriceChart: View {
                 
                 Spacer()
                 
-                if priceData.count > 1, let middle = priceData[priceData.count / 2] {
+                // Middle label - avoid conditional binding with non-Optional
+                if priceData.count > 1 {
+                    let middle = priceData[priceData.count / 2]
                     Text(formattedTime(middle.timestamp))
                         .font(.caption)
                         .foregroundColor(.secondary)
@@ -168,6 +171,7 @@ struct PriceChart: View {
                 
                 Spacer()
                 
+                // Last label - priceData.last is already Optional so this is correct
                 if let last = priceData.last {
                     Text(formattedTime(last.timestamp))
                         .font(.caption)
