@@ -2,56 +2,67 @@ import Foundation
 import Combine
 
 class UserSettings: ObservableObject {
+    // Default values for properties
+    private let defaultHighPriceThreshold: Double = 10.0  // cents per kWh
+    private let defaultLowPriceThreshold: Double = 2.0    // cents per kWh
+    private let defaultNotificationsEnabled: Bool = true
+    private let defaultRefreshInterval: Int = 30          // minutes
+    
     // Published properties so SwiftUI views update when they change
-    @Published var highPriceThreshold: Double {
+    // Initialize with default values first to prevent "self used before initialization" errors
+    @Published var highPriceThreshold: Double = 10.0 {
         didSet {
             UserDefaults.standard.set(highPriceThreshold, forKey: "highPriceThreshold")
         }
     }
     
-    @Published var lowPriceThreshold: Double {
+    @Published var lowPriceThreshold: Double = 2.0 {
         didSet {
             UserDefaults.standard.set(lowPriceThreshold, forKey: "lowPriceThreshold")
         }
     }
     
-    @Published var notificationsEnabled: Bool {
+    @Published var notificationsEnabled: Bool = true {
         didSet {
             UserDefaults.standard.set(notificationsEnabled, forKey: "notificationsEnabled")
         }
     }
     
-    @Published var refreshInterval: Int {
+    @Published var refreshInterval: Int = 30 {
         didSet {
             UserDefaults.standard.set(refreshInterval, forKey: "refreshInterval")
         }
     }
     
-    // Default values and load from UserDefaults if available
+    // Load from UserDefaults if available
     init() {
-        self.highPriceThreshold = UserDefaults.standard.double(forKey: "highPriceThreshold")
-        if self.highPriceThreshold == 0 {
-            self.highPriceThreshold = 10.0  // Default high price threshold (cents per kWh)
+        // Load values from UserDefaults, only after properties are initialized above
+        let storedHighThreshold = UserDefaults.standard.double(forKey: "highPriceThreshold")
+        if storedHighThreshold != 0 {
+            self.highPriceThreshold = storedHighThreshold
         }
         
-        self.lowPriceThreshold = UserDefaults.standard.double(forKey: "lowPriceThreshold")
-        if self.lowPriceThreshold == 0 {
-            self.lowPriceThreshold = 2.0   // Default low price threshold (cents per kWh)
+        let storedLowThreshold = UserDefaults.standard.double(forKey: "lowPriceThreshold")
+        if storedLowThreshold != 0 {
+            self.lowPriceThreshold = storedLowThreshold
         }
         
-        self.notificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+        // For boolean values, we need to check if the key exists because false is the default for bool(forKey:)
+        if UserDefaults.standard.object(forKey: "notificationsEnabled") != nil {
+            self.notificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+        }
         
-        self.refreshInterval = UserDefaults.standard.integer(forKey: "refreshInterval")
-        if self.refreshInterval == 0 {
-            self.refreshInterval = 30      // Default refresh interval (minutes)
+        let storedRefreshInterval = UserDefaults.standard.integer(forKey: "refreshInterval")
+        if storedRefreshInterval != 0 {
+            self.refreshInterval = storedRefreshInterval
         }
     }
     
     // Method to reset settings to defaults
     func resetToDefaults() {
-        self.highPriceThreshold = 10.0
-        self.lowPriceThreshold = 2.0
-        self.notificationsEnabled = true
-        self.refreshInterval = 30
+        self.highPriceThreshold = defaultHighPriceThreshold
+        self.lowPriceThreshold = defaultLowPriceThreshold
+        self.notificationsEnabled = defaultNotificationsEnabled
+        self.refreshInterval = defaultRefreshInterval
     }
 }
