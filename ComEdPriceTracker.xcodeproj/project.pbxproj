@@ -7,91 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1308F923298A1DA0002478C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F922298A1DA0002478C4 /* AppDelegate.swift */; };
-		1308F925298A1DA0002478C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F924298A1DA0002478C4 /* SceneDelegate.swift */; };
-		1308F927298A1DA0002478C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F926298A1DA0002478C4 /* ContentView.swift */; };
-		1308F92C298A1DA2002478C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1308F92B298A1DA2002478C4 /* Assets.xcassets */; };
-		1308F92F298A1DA2002478C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1308F92D298A1DA2002478C4 /* LaunchScreen.storyboard */; };
-		1308F93A298A1DA2002478C4 /* ComEdPriceTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F939298A1DA2002478C4 /* ComEdPriceTrackerTests.swift */; };
-		1308F944298A1DA2002478C4 /* ComEdPriceTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F943298A1DA2002478C4 /* ComEdPriceTrackerUITests.swift */; };
-		1308F946298A1DA2002478C4 /* ComEdPriceTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F945298A1DA2002478C4 /* ComEdPriceTrackerUITestsLaunchTests.swift */; };
-		1308F953298A1DB4002478C4 /* PriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F952298A1DB4002478C4 /* PriceData.swift */; };
-		1308F955298A1DBF002478C4 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F954298A1DBF002478C4 /* UserSettings.swift */; };
-		1308F957298A1DCA002478C4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F956298A1DCA002478C4 /* APIService.swift */; };
-		1308F959298A1DD3002478C4 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F958298A1DD3002478C4 /* NotificationService.swift */; };
-		1308F95B298A1DDD002478C4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F95A298A1DDD002478C4 /* HomeView.swift */; };
-		1308F95D298A1DE5002478C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F95C298A1DE5002478C4 /* SettingsView.swift */; };
-		1308F95F298A1DEF002478C4 /* PriceHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F95E298A1DEF002478C4 /* PriceHistoryView.swift */; };
-		1308F961298A1DF7002478C4 /* PriceChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F960298A1DF7002478C4 /* PriceChart.swift */; };
-		1308F963298A1E00002478C4 /* PriceDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F962298A1E00002478C4 /* PriceDisplay.swift */; };
-		1308F965298A1E0A002478C4 /* ThresholdEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F964298A1E0A002478C4 /* ThresholdEditor.swift */; };
-		1308F96D298A1E1F002478C4 /* ComEdPriceTrackerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F96C298A1E1F002478C4 /* ComEdPriceTrackerWidget.swift */; };
-		1308F96F298A1E27002478C4 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F96E298A1E27002478C4 /* SmallWidgetView.swift */; };
-		1308F971298A1E2F002478C4 /* MediumWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1308F970298A1E2F002478C4 /* MediumWidgetView.swift */; };
+		/* Files will be added automatically by Xcode */
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1308F936298A1DA2002478C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1308F917298A1DA0002478C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1308F91E298A1DA0002478C4;
-			remoteInfo = ComEdPriceTracker;
-		};
-		1308F940298A1DA2002478C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1308F917298A1DA0002478C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1308F91E298A1DA0002478C4;
-			remoteInfo = ComEdPriceTracker;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		1308F91F298A1DA0002478C4 /* ComEdPriceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComEdPriceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1308F922298A1DA0002478C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1308F924298A1DA0002478C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1308F926298A1DA0002478C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		1308F92B298A1DA2002478C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1308F92E298A1DA2002478C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1308F930298A1DA2002478C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1308F935298A1DA2002478C4 /* ComEdPriceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ComEdPriceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1308F939298A1DA2002478C4 /* ComEdPriceTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComEdPriceTrackerTests.swift; sourceTree = "<group>"; };
-		1308F93F298A1DA2002478C4 /* ComEdPriceTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ComEdPriceTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1308F943298A1DA2002478C4 /* ComEdPriceTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComEdPriceTrackerUITests.swift; sourceTree = "<group>"; };
-		1308F945298A1DA2002478C4 /* ComEdPriceTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComEdPriceTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1308F952298A1DB4002478C4 /* PriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceData.swift; sourceTree = "<group>"; };
-		1308F954298A1DBF002478C4 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		1308F956298A1DCA002478C4 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		1308F958298A1DD3002478C4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		1308F95A298A1DDD002478C4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		1308F95C298A1DE5002478C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		1308F95E298A1DEF002478C4 /* PriceHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryView.swift; sourceTree = "<group>"; };
-		1308F960298A1DF7002478C4 /* PriceChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceChart.swift; sourceTree = "<group>"; };
-		1308F962298A1E00002478C4 /* PriceDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDisplay.swift; sourceTree = "<group>"; };
-		1308F964298A1E0A002478C4 /* ThresholdEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdEditor.swift; sourceTree = "<group>"; };
-		1308F96A298A1E1F002478C4 /* ComEdPriceTrackerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ComEdPriceTrackerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1308F96C298A1E1F002478C4 /* ComEdPriceTrackerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComEdPriceTrackerWidget.swift; sourceTree = "<group>"; };
-		1308F96E298A1E27002478C4 /* SmallWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView.swift; sourceTree = "<group>"; };
-		1308F970298A1E2F002478C4 /* MediumWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidgetView.swift; sourceTree = "<group>"; };
+		0A1234561234567890ABCDEF /* ComEdPriceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComEdPriceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A1234561234567890ABCDE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1308F91C298A1DA0002478C4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1308F932298A1DA2002478C4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1308F93C298A1DA2002478C4 /* Frameworks */ = {
+		0A1234561234567890ABCDE2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -101,128 +26,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1308F916298A1DA0002478C4 = {
+		0A1234561234567890ABCDE3 = {
 			isa = PBXGroup;
 			children = (
-				1308F921298A1DA0002478C4 /* ComEdPriceTracker */,
-				1308F938298A1DA2002478C4 /* ComEdPriceTrackerTests */,
-				1308F942298A1DA2002478C4 /* ComEdPriceTrackerUITests */,
-				1308F96B298A1E1F002478C4 /* ComEdPriceTrackerWidget */,
-				1308F920298A1DA0002478C4 /* Products */,
+				0A1234561234567890ABCDE4 /* ComEdPriceTracker */,
+				0A1234561234567890ABCDE5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		1308F920298A1DA0002478C4 /* Products */ = {
+		0A1234561234567890ABCDE5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1308F91F298A1DA0002478C4 /* ComEdPriceTracker.app */,
-				1308F935298A1DA2002478C4 /* ComEdPriceTrackerTests.xctest */,
-				1308F93F298A1DA2002478C4 /* ComEdPriceTrackerUITests.xctest */,
-				1308F96A298A1E1F002478C4 /* ComEdPriceTrackerWidgetExtension.appex */,
+				0A1234561234567890ABCDEF /* ComEdPriceTracker.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1308F921298A1DA0002478C4 /* ComEdPriceTracker */ = {
+		0A1234561234567890ABCDE4 /* ComEdPriceTracker */ = {
 			isa = PBXGroup;
 			children = (
-				1308F922298A1DA0002478C4 /* AppDelegate.swift */,
-				1308F924298A1DA0002478C4 /* SceneDelegate.swift */,
-				1308F926298A1DA0002478C4 /* ContentView.swift */,
-				1308F972298A1E39002478C4 /* Models */,
-				1308F973298A1E40002478C4 /* Services */,
-				1308F974298A1E47002478C4 /* Views */,
-				1308F92B298A1DA2002478C4 /* Assets.xcassets */,
-				1308F92D298A1DA2002478C4 /* LaunchScreen.storyboard */,
-				1308F930298A1DA2002478C4 /* Info.plist */,
+				0A1234561234567890ABCDE1 /* Info.plist */,
 			);
 			path = ComEdPriceTracker;
-			sourceTree = "<group>";
-		};
-		1308F938298A1DA2002478C4 /* ComEdPriceTrackerTests */ = {
-			isa = PBXGroup;
-			children = (
-				1308F939298A1DA2002478C4 /* ComEdPriceTrackerTests.swift */,
-			);
-			path = ComEdPriceTrackerTests;
-			sourceTree = "<group>";
-		};
-		1308F942298A1DA2002478C4 /* ComEdPriceTrackerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				1308F943298A1DA2002478C4 /* ComEdPriceTrackerUITests.swift */,
-				1308F945298A1DA2002478C4 /* ComEdPriceTrackerUITestsLaunchTests.swift */,
-			);
-			path = ComEdPriceTrackerUITests;
-			sourceTree = "<group>";
-		};
-		1308F96B298A1E1F002478C4 /* ComEdPriceTrackerWidget */ = {
-			isa = PBXGroup;
-			children = (
-				1308F96C298A1E1F002478C4 /* ComEdPriceTrackerWidget.swift */,
-				1308F975298A1E6E002478C4 /* Views */,
-			);
-			path = ComEdPriceTrackerWidget;
-			sourceTree = "<group>";
-		};
-		1308F972298A1E39002478C4 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				1308F952298A1DB4002478C4 /* PriceData.swift */,
-				1308F954298A1DBF002478C4 /* UserSettings.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		1308F973298A1E40002478C4 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				1308F956298A1DCA002478C4 /* APIService.swift */,
-				1308F958298A1DD3002478C4 /* NotificationService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		1308F974298A1E47002478C4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1308F95A298A1DDD002478C4 /* HomeView.swift */,
-				1308F95C298A1DE5002478C4 /* SettingsView.swift */,
-				1308F95E298A1DEF002478C4 /* PriceHistoryView.swift */,
-				1308F976298A1E76002478C4 /* Components */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		1308F975298A1E6E002478C4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1308F96E298A1E27002478C4 /* SmallWidgetView.swift */,
-				1308F970298A1E2F002478C4 /* MediumWidgetView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		1308F976298A1E76002478C4 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				1308F960298A1DF7002478C4 /* PriceChart.swift */,
-				1308F962298A1E00002478C4 /* PriceDisplay.swift */,
-				1308F964298A1E0A002478C4 /* ThresholdEditor.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1308F91E298A1DA0002478C4 /* ComEdPriceTracker */ = {
+		0A1234561234567890ABCDE6 /* ComEdPriceTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1308F949298A1DA2002478C4 /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */;
+			buildConfigurationList = 0A1234561234567890ABCDE7 /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */;
 			buildPhases = (
-				1308F91B298A1DA0002478C4 /* Sources */,
-				1308F91C298A1DA0002478C4 /* Frameworks */,
-				1308F91D298A1DA0002478C4 /* Resources */,
+				0A1234561234567890ABCDE8 /* Sources */,
+				0A1234561234567890ABCDE2 /* Frameworks */,
+				0A1234561234567890ABCDE9 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -230,69 +67,25 @@
 			);
 			name = ComEdPriceTracker;
 			productName = ComEdPriceTracker;
-			productReference = 1308F91F298A1DA0002478C4 /* ComEdPriceTracker.app */;
+			productReference = 0A1234561234567890ABCDEF /* ComEdPriceTracker.app */;
 			productType = "com.apple.product-type.application";
-		};
-		1308F934298A1DA2002478C4 /* ComEdPriceTrackerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1308F94C298A1DA2002478C4 /* Build configuration list for PBXNativeTarget "ComEdPriceTrackerTests" */;
-			buildPhases = (
-				1308F931298A1DA2002478C4 /* Sources */,
-				1308F932298A1DA2002478C4 /* Frameworks */,
-				1308F933298A1DA2002478C4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1308F937298A1DA2002478C4 /* PBXTargetDependency */,
-			);
-			name = ComEdPriceTrackerTests;
-			productName = ComEdPriceTrackerTests;
-			productReference = 1308F935298A1DA2002478C4 /* ComEdPriceTrackerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1308F93E298A1DA2002478C4 /* ComEdPriceTrackerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1308F94F298A1DA2002478C4 /* Build configuration list for PBXNativeTarget "ComEdPriceTrackerUITests" */;
-			buildPhases = (
-				1308F93B298A1DA2002478C4 /* Sources */,
-				1308F93C298A1DA2002478C4 /* Frameworks */,
-				1308F93D298A1DA2002478C4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1308F941298A1DA2002478C4 /* PBXTargetDependency */,
-			);
-			name = ComEdPriceTrackerUITests;
-			productName = ComEdPriceTrackerUITests;
-			productReference = 1308F93F298A1DA2002478C4 /* ComEdPriceTrackerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1308F917298A1DA0002478C4 /* Project object */ = {
+		0A1234561234567890ABCDEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
-					1308F91E298A1DA0002478C4 = {
-						CreatedOnToolsVersion = 13.2.1;
-					};
-					1308F934298A1DA2002478C4 = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 1308F91E298A1DA0002478C4;
-					};
-					1308F93E298A1DA2002478C4 = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 1308F91E298A1DA0002478C4;
+					0A1234561234567890ABCDE6 = {
+						CreatedOnToolsVersion = 13.1;
 					};
 				};
 			};
-			buildConfigurationList = 1308F91A298A1DA0002478C4 /* Build configuration list for PBXProject "ComEdPriceTracker" */;
+			buildConfigurationList = 0A1234561234567890ABCDEB /* Build configuration list for PBXProject "ComEdPriceTracker" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -300,36 +93,18 @@
 				en,
 				Base,
 			);
-			mainGroup = 1308F916298A1DA0002478C4;
-			productRefGroup = 1308F920298A1DA0002478C4 /* Products */;
+			mainGroup = 0A1234561234567890ABCDE3;
+			productRefGroup = 0A1234561234567890ABCDE5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1308F91E298A1DA0002478C4 /* ComEdPriceTracker */,
-				1308F934298A1DA2002478C4 /* ComEdPriceTrackerTests */,
-				1308F93E298A1DA2002478C4 /* ComEdPriceTrackerUITests */,
+				0A1234561234567890ABCDE6 /* ComEdPriceTracker */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1308F91D298A1DA0002478C4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1308F92F298A1DA2002478C4 /* LaunchScreen.storyboard in Resources */,
-				1308F92C298A1DA2002478C4 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1308F933298A1DA2002478C4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1308F93D298A1DA2002478C4 /* Resources */ = {
+		0A1234561234567890ABCDE9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -339,71 +114,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1308F91B298A1DA0002478C4 /* Sources */ = {
+		0A1234561234567890ABCDE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1308F965298A1E0A002478C4 /* ThresholdEditor.swift in Sources */,
-				1308F95B298A1DDD002478C4 /* HomeView.swift in Sources */,
-				1308F961298A1DF7002478C4 /* PriceChart.swift in Sources */,
-				1308F923298A1DA0002478C4 /* AppDelegate.swift in Sources */,
-				1308F957298A1DCA002478C4 /* APIService.swift in Sources */,
-				1308F963298A1E00002478C4 /* PriceDisplay.swift in Sources */,
-				1308F925298A1DA0002478C4 /* SceneDelegate.swift in Sources */,
-				1308F95D298A1DE5002478C4 /* SettingsView.swift in Sources */,
-				1308F959298A1DD3002478C4 /* NotificationService.swift in Sources */,
-				1308F927298A1DA0002478C4 /* ContentView.swift in Sources */,
-				1308F953298A1DB4002478C4 /* PriceData.swift in Sources */,
-				1308F955298A1DBF002478C4 /* UserSettings.swift in Sources */,
-				1308F95F298A1DEF002478C4 /* PriceHistoryView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1308F931298A1DA2002478C4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1308F93A298A1DA2002478C4 /* ComEdPriceTrackerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1308F93B298A1DA2002478C4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1308F946298A1DA2002478C4 /* ComEdPriceTrackerUITestsLaunchTests.swift in Sources */,
-				1308F944298A1DA2002478C4 /* ComEdPriceTrackerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		1308F937298A1DA2002478C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1308F91E298A1DA0002478C4 /* ComEdPriceTracker */;
-			targetProxy = 1308F936298A1DA2002478C4 /* PBXContainerItemProxy */;
-		};
-		1308F941298A1DA2002478C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1308F91E298A1DA0002478C4 /* ComEdPriceTracker */;
-			targetProxy = 1308F940298A1DA2002478C4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		1308F92D298A1DA2002478C4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1308F92E298A1DA2002478C4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		1308F947298A1DA2002478C4 /* Debug */ = {
+		0A1234561234567890ABCDEC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -464,7 +185,7 @@
 			};
 			name = Debug;
 		};
-		1308F948298A1DA2002478C4 /* Release */ = {
+		0A1234561234567890ABCDED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -519,18 +240,25 @@
 			};
 			name = Release;
 		};
-		1308F94A298A1DA2002478C4 /* Debug */ = {
+		0A1234561234567890ABCDEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "ComEdPriceTracker/Resources";
 				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/System/Library/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ComEdPriceTracker/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -538,7 +266,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourname.ComEdPriceTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ComEdPriceTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -546,18 +274,25 @@
 			};
 			name = Debug;
 		};
-		1308F94B298A1DA2002478C4 /* Release */ = {
+		0A1234561234567890ABCDEF0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "ComEdPriceTracker/Resources";
 				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/System/Library/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ComEdPriceTracker/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -565,126 +300,36 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourname.ComEdPriceTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ComEdPriceTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		1308F94D298A1DA2002478C4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourname.ComEdPriceTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComEdPriceTracker.app/ComEdPriceTracker";
-			};
-			name = Debug;
-		};
-		1308F94E298A1DA2002478C4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourname.ComEdPriceTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ComEdPriceTracker.app/ComEdPriceTracker";
-			};
-			name = Release;
-		};
-		1308F950298A1DA2002478C4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourname.ComEdPriceTrackerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ComEdPriceTracker;
-			};
-			name = Debug;
-		};
-		1308F951298A1DA2002478C4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourname.ComEdPriceTrackerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ComEdPriceTracker;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1308F91A298A1DA0002478C4 /* Build configuration list for PBXProject "ComEdPriceTracker" */ = {
+		0A1234561234567890ABCDEB /* Build configuration list for PBXProject "ComEdPriceTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1308F947298A1DA2002478C4 /* Debug */,
-				1308F948298A1DA2002478C4 /* Release */,
+				0A1234561234567890ABCDEC /* Debug */,
+				0A1234561234567890ABCDED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1308F949298A1DA2002478C4 /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */ = {
+		0A1234561234567890ABCDE7 /* Build configuration list for PBXNativeTarget "ComEdPriceTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1308F94A298A1DA2002478C4 /* Debug */,
-				1308F94B298A1DA2002478C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1308F94C298A1DA2002478C4 /* Build configuration list for PBXNativeTarget "ComEdPriceTrackerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1308F94D298A1DA2002478C4 /* Debug */,
-				1308F94E298A1DA2002478C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1308F94F298A1DA2002478C4 /* Build configuration list for PBXNativeTarget "ComEdPriceTrackerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1308F950298A1DA2002478C4 /* Debug */,
-				1308F951298A1DA2002478C4 /* Release */,
+				0A1234561234567890ABCDEE /* Debug */,
+				0A1234561234567890ABCDEF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1308F917298A1DA0002478C4 /* Project object */;
+	rootObject = 0A1234561234567890ABCDEA /* Project object */;
 }
